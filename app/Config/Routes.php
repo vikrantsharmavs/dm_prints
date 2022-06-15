@@ -31,48 +31,49 @@ $routes->setAutoRoute(true);
 
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
-$routes->get('/', 'Home::index');
-$routes->get('party', "Party::index");
-$routes->match(['get', 'post'], 'party-add', "Party::add");
-$routes->match(['get', 'post'], 'party-edit/(:num)', "Party::add/$1");
-$routes->get('update-party-status/(:num)/(:any)', 'Party::update_status/$1/$2');
+$routes->match(['get', 'post'], '/', 'Login::index');
+$routes->get('dashboard', 'Home::index', ['filter' => 'super_logged']);
+$routes->get('party', "Party::index", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'party-add', "Party::add", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'party-edit/(:num)', "Party::add/$1", ['filter' => 'super_logged']);
+$routes->get('update-party-status/(:num)/(:any)', 'Party::update_status/$1/$2', ['filter' => 'super_logged']);
 
-$routes->get('quality', "Quality::index");
-$routes->match(['get', 'post'], 'quality-add', "Quality::add");
-$routes->match(['get', 'post'], 'quality-edit/(:num)', "Quality::add/$1");
-$routes->get('update-quality-status/(:num)/(:any)', 'Quality::update_status/$1/$2');
-
-
-
-$routes->get('color', "Color::index");
-$routes->match(['get', 'post'], 'color-add', "Color::add");
-$routes->match(['get', 'post'], 'color-edit/(:num)', "Color::add/$1");
-$routes->get('update-color-status/(:num)/(:any)', 'Color::update_status/$1/$2');
-
-
-$routes->get('unit', "Unit::index");
-$routes->match(['get', 'post'], 'unit-add', "Unit::add");
-$routes->match(['get', 'post'], 'unit-edit/(:num)', "Unit::add/$1");
-$routes->get('update-unit-status/(:num)/(:any)', 'Unit::update_status/$1/$2');
-
-
-$routes->get('weight', "Weight::index");
-$routes->match(['get', 'post'], 'weight-add', "Weight::add");
-$routes->match(['get', 'post'], 'weight-edit/(:num)', "Weight::add/$1");
-$routes->get('update-weight-status/(:num)/(:any)', 'Weight::update_status/$1/$2');
-
-$routes->get('receiving', "Receiving::index");
-$routes->match(['get', 'post'], 'receiving-add', "Receiving::add");
-$routes->match(['get', 'post'], 'receiving-edit/(:num)', "Receiving::edit/$1");
-
-$routes->get('receiving-bag', "ReceivingBag::index");
-$routes->post('submitValue', "ReceivingBag::submitValue");
+$routes->get('quality', "Quality::index", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'quality-add', "Quality::add", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'quality-edit/(:num)', "Quality::add/$1", ['filter' => 'super_logged']);
+$routes->get('update-quality-status/(:num)/(:any)', 'Quality::update_status/$1/$2', ['filter' => 'super_logged']);
 
 
 
+$routes->get('color', "Color::index", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'color-add', "Color::add", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'color-edit/(:num)', "Color::add/$1", ['filter' => 'super_logged']);
+$routes->get('update-color-status/(:num)/(:any)', 'Color::update_status/$1/$2', ['filter' => 'super_logged']);
 
-$routes->post('sendDataReceiving', "Receiving::sendDataReceiving");
-$routes->post('receiveBagData', "ReceivingBag::receiveBagData");
+
+$routes->get('unit', "Unit::index", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'unit-add', "Unit::add", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'unit-edit/(:num)', "Unit::add/$1", ['filter' => 'super_logged']);
+$routes->get('update-unit-status/(:num)/(:any)', 'Unit::update_status/$1/$2', ['filter' => 'super_logged']);
+
+
+$routes->get('weight', "Weight::index", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'weight-add', "Weight::add", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'weight-edit/(:num)', "Weight::add/$1", ['filter' => 'super_logged']);
+$routes->get('update-weight-status/(:num)/(:any)', 'Weight::update_status/$1/$2', ['filter' => 'super_logged']);
+
+$routes->get('receiving', "Receiving::index", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'receiving-add', "Receiving::add", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'receiving-edit/(:num)', "Receiving::edit/$1", ['filter' => 'super_logged']);
+
+$routes->get('receiving-bag', "ReceivingBag::index", ['filter' => 'super_logged']);
+$routes->post('submitValue', "ReceivingBag::submitValue", ['filter' => 'super_logged']);
+
+
+
+
+$routes->post('sendDataReceiving', "Receiving::sendDataReceiving", ['filter' => 'super_logged']);
+$routes->post('receiveBagData', "ReceivingBag::receiveBagData", ['filter' => 'super_logged']);
 
 /*
  * --------------------------------------------------------------------

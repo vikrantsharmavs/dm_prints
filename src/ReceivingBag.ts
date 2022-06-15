@@ -1,6 +1,5 @@
 class ReceivingBag {
   constructor() {}
-
   generateDynamicInput(url: any, latNumber: any) {
     if (latNumber != null) {
       $.ajax({
@@ -13,7 +12,6 @@ class ReceivingBag {
           let data = JSON.parse(result);
           if (data.status == "Success") {
             let countInput = data.totalInput.begNumber;
-
             let receiveBagRecord = data.receivingBagData;
             let subtractValue = countInput - receiveBagRecord.length;
             (<HTMLInputElement>(
