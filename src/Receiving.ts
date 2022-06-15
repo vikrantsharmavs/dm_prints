@@ -155,7 +155,6 @@ class Receiving {
     this.setLocalStorageItem(arr);
     this.showData();
   }
-
   clearData() {
     (<HTMLInputElement>document.getElementById("lotNumber")).value = "";
     (<HTMLInputElement>document.getElementById("quality")).value = "";

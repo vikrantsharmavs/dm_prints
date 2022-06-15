@@ -15,6 +15,7 @@ class ReceivingBag extends BaseController
     public function index($search = null)
     {
         $model = new ReceivingBagModel();
+        $CModel = new CommonModel();
         $searchData = $this->request->getGet();
         $numRows = $this->commonLib->numRows;
         $param = array();
@@ -28,6 +29,7 @@ class ReceivingBag extends BaseController
             'data' => $record,
             'pager' => $model->pager,
             'pageValueNumber' => $numRows,
+            'model' => $CModel,
             'page' => $this->request->getGet('page') ?? '',
             'links' => $model->pager->links('default', 'bootstrap_full'),
             'search' => $search

@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="table-responsive">
-        <table class="table table-light table-sm table-bordered table-centered mb-0">
+        <table class="table table-light table-sm table-bordered mb-0">
             <thead>
                 <tr>
                     <th class="text-center">#</th>
@@ -22,13 +22,18 @@
                     <th>Color</th>
                     <th>Weight</th>
                     <th>Unit</th>
+                    <th>Roll/Bag</th>
+                    <th>Total Entry</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
             <tbody>
                 <?php if (!empty($data)) {
                     $i = $page == "" ? '1' : ($page - 1) * $pageValueNumber + 1;
-                    foreach ($data as $key) { ?>
+                    foreach ($data as $key) {
+                        $SumRow = $model->CountRecord("receivingbag", array("lotNumber" => $key['lotNumber']));
+
+                ?>
                         <tr>
                             <td class="text-heading font-semibold text-center"><?= $i ?></td>
                             <td class="text-heading font-semibold"><?= $key['lotNumber'] ?></td>
@@ -36,7 +41,9 @@
                             <td class="text-heading font-semibold"><?= $key['color'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['weight'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['unit'] ?></td>
-                            <td class="text-center"><button type="button" class="btn btn-primary btn-sm p-1" onclick="Bag.generateDynamicInput('<?= site_url('') ?>','<?= $key['lotNumber'] ?>')" data-bs-toggle="modal" data-bs-target="#exampleModal">Add Bag</button></td>
+                            <td class="text-heading font-semibold"><?= $key['BEG'] ?></td>
+                            <td class="text-heading font-semibold"><?= $SumRow  ?></td>
+                            <td class="text-center"><button type="button" class="btn btn-primary btn-sm p-1" onclick="Bag.generateDynamicInput('<?= site_url('') ?>','<?= $key['lotNumber'] ?>')" data-bs-toggle="modal" data-bs-target="#exampleModal">Add/Edit Roll</button></td>
                         </tr>
                     <?php $i++;
                     }
@@ -58,10 +65,10 @@
 </div>
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog  bg-secondary modal-dialog-scrollable  modal-dialog-centered modal-fullscreen-sm">
+    <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Roll/Bag</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">

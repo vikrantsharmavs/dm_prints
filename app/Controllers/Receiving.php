@@ -51,6 +51,7 @@ class Receiving extends BaseController
         $data = [
             'title' => title("receiving"),
             'edit' => $fetchRecordId,
+            'Eid' => "",
             'validation' => $this->validation,
             "quality" => $model->selectQuery("quality", array("status" => "Active")),
             "color" => $model->selectQuery("color", array("status" => "Active")),

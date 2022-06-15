@@ -16,8 +16,9 @@ class ReceivingBagModel extends Model
             }
         }
         $this->distinct();
-        $this->select('quality,color,weight,unit,partyName,lotNumber,begNumber');
+        $this->select('quality,color,weight,unit,partyName,lotNumber,SUM(begNumber) AS BEG');
         $this->orderBy("receiving_id", "DESC");
+        $this->groupBy("lotNumber");
         $result = $this->paginate($nb_page);
         return $result;
     }
