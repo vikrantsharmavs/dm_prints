@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2022 at 02:24 PM
+-- Generation Time: Jun 15, 2022 at 02:01 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -112,17 +112,9 @@ CREATE TABLE `receiving` (
 --
 
 INSERT INTO `receiving` (`rid`, `max_num`, `receiving_id`, `receivingDate`, `partyName`, `lotNumber`, `quality`, `color`, `weight`, `unit`, `begNumber`, `creation_date`, `updated_date`, `status`) VALUES
-(2, 2, 'REC-00002', '2022-06-13', 'Vikrant Sharma', '30', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 00:21:30', NULL, 'Active'),
-(3, 3, 'REC-00003', '2022-06-13', 'Vikrant Sharma', '30', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 00:24:27', NULL, 'Active'),
-(4, 4, 'REC-00004', '2022-06-14', 'Vikrant Sharma', '2001', 'Euraopian', 'Red', '2020*2000', 'PCS', 20, '2022-06-14 00:25:44', NULL, 'Active'),
-(5, 5, 'REC-00005', '2022-06-14', 'Vikrant Sharma', '200', 'Euraopian', 'Red', '2020*2000', 'PCS', 201, '2022-06-14 00:26:16', NULL, 'Active'),
-(6, 6, 'REC-00006', '2022-06-14', 'Vikrant Sharma', '220', 'Euraopian', 'Red', '2020*2000', 'PCS', 32, '2022-06-14 00:31:08', NULL, 'Active'),
-(7, 7, 'REC-00007', '2022-06-13', 'Vikrant Sharma', '30', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 02:42:52', NULL, 'Active'),
-(8, 7, 'REC-00007', '2022-06-13', 'Vikrant Sharma', '6520', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 02:42:52', NULL, 'Active'),
-(9, 8, 'REC-00008', '2022-06-13', 'Vikrant Sharma', '30', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 02:43:56', NULL, 'Active'),
-(10, 9, 'REC-00009', '2022-06-13', 'Vikrant Sharma', '30', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 02:44:20', NULL, 'Active'),
-(15, 1, 'REC-00001', '2022-06-13', 'Vikrant Sharma', '30', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 03:16:52', NULL, 'Active'),
-(16, 1, 'REC-00001', '2022-06-13', 'Vikrant Sharma', '30', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-14 03:16:52', NULL, 'Active');
+(7, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '10', 'Euraopian', 'Red', '2020*2000', 'PCS', 15, '2022-06-15 05:25:30', NULL, 'Active'),
+(8, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '21', 'Euraopian', 'Red', '2020*2000', 'PCS', 11, '2022-06-15 05:25:30', NULL, 'Active'),
+(9, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '23', 'Euraopian', 'Red', '2020*2000', 'PCS', 24, '2022-06-15 05:25:30', NULL, 'Active');
 
 -- --------------------------------------------------------
 
@@ -136,22 +128,25 @@ CREATE TABLE `receivingbag` (
   `begInch` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `receivingbag`
+-- Table structure for table `superadmin`
 --
 
-INSERT INTO `receivingbag` (`rbid`, `lotNumber`, `begInch`) VALUES
-(1, '6520', 123),
-(2, '6520', 123),
-(3, '6520', 12),
-(4, '6520', 31),
-(5, '6520', 23),
-(6, '6520', 1),
-(7, '6520', 231),
-(8, '6520', 2),
-(9, '6520', 12),
-(10, '6520', 31),
-(11, '6520', 23);
+CREATE TABLE `superadmin` (
+  `sid` int(11) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `superstatus` varchar(25) NOT NULL DEFAULT 'Active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `superadmin`
+--
+
+INSERT INTO `superadmin` (`sid`, `username`, `password`, `superstatus`) VALUES
+(1, 'admin', '$2y$10$EnUUHkBNinPn1bh9jUAycOErdsfiqJgJ/xEcu4UIu8.HrblRml6LC', 'Active');
 
 -- --------------------------------------------------------
 
@@ -231,6 +226,12 @@ ALTER TABLE `receivingbag`
   ADD PRIMARY KEY (`rbid`);
 
 --
+-- Indexes for table `superadmin`
+--
+ALTER TABLE `superadmin`
+  ADD PRIMARY KEY (`sid`);
+
+--
 -- Indexes for table `unit`
 --
 ALTER TABLE `unit`
@@ -268,13 +269,19 @@ ALTER TABLE `quality`
 -- AUTO_INCREMENT for table `receiving`
 --
 ALTER TABLE `receiving`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `receivingbag`
 --
 ALTER TABLE `receivingbag`
-  MODIFY `rbid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `rbid` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `superadmin`
+--
+ALTER TABLE `superadmin`
+  MODIFY `sid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `unit`
