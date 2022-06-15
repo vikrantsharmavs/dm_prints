@@ -17,7 +17,6 @@
 </head>
 
 <body>
-
     <script type="text/javascript">
         toastr.options = {
             "closeButton": false,

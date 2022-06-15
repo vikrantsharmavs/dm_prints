@@ -36,7 +36,6 @@ class Color extends BaseController
     }
     public function add($id = null)
     {
-
         $model = new CommonModel();
         $session  = session();
         $fetchRecordId = '';
