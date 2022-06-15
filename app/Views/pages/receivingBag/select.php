@@ -24,6 +24,7 @@
                     <th>Unit</th>
                     <th>Roll/Bag</th>
                     <th>Total Entry</th>
+                    <th>Total Meter</th>
                     <th class="text-center">Action</th>
                 </tr>
             </thead>
@@ -31,8 +32,8 @@
                 <?php if (!empty($data)) {
                     $i = $page == "" ? '1' : ($page - 1) * $pageValueNumber + 1;
                     foreach ($data as $key) {
-                        $SumRow = $model->CountRecord("receivingbag", array("lotNumber" => $key['lotNumber']));
-
+                        $countTotalEntry = $model->CountRecord("receivingbag", array("lotNumber" => $key['lotNumber']));
+                        $totalMeter = $model->SUMNumberGenerate("receivingbag", "begInch", array("lotNumber" => $key['lotNumber']));
                 ?>
                         <tr>
                             <td class="text-heading font-semibold text-center"><?= $i ?></td>
@@ -42,7 +43,8 @@
                             <td class="text-heading font-semibold"><?= $key['weight'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['unit'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['BEG'] ?></td>
-                            <td class="text-heading font-semibold"><?= $SumRow  ?></td>
+                            <td class="text-heading font-semibold"><?= $countTotalEntry  ?></td>
+                            <td class="text-heading font-semibold"><?= number_format($totalMeter->begInch, 3)  ?> M</td>
                             <td class="text-center"><button type="button" class="btn btn-primary btn-sm p-1" onclick="Bag.generateDynamicInput('<?= site_url('') ?>','<?= $key['lotNumber'] ?>')" data-bs-toggle="modal" data-bs-target="#exampleModal">Add/Edit Roll</button></td>
                         </tr>
                     <?php $i++;

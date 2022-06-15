@@ -68,7 +68,7 @@ $validation = \Config\Services::validation();
                         <?php if (!empty($quality)) {
                             foreach ($quality as $rowQ) { ?>
                                 <option value="<?= $rowQ->quality_name ?>"><?= $rowQ->quality_name ?></option>
-                        <?php      }
+                        <?php }
                         } ?>
                     </select>
                 </div>
@@ -82,7 +82,7 @@ $validation = \Config\Services::validation();
                         <?php if (!empty($color)) {
                             foreach ($color as $rowC) { ?>
                                 <option value="<?= $rowC->color_name ?>"><?= $rowC->color_name ?></option>
-                        <?php      }
+                        <?php }
                         } ?>
                     </select>
                 </div>
@@ -144,7 +144,5 @@ $validation = \Config\Services::validation();
     </div>
     <button class="btn btn-sm btn-info rounded" id="submit" style="display:none" onclick="receiving.submitForm('<?= site_url('sendDataReceiving') ?>','<?= site_url() ?>')" type="button">Submit</button>
 </div>
-
 <script src="<?= base_url('public/javascript/Receiving.js') ?>"></script>
-
 <?= $this->endSection(); ?>

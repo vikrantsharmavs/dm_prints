@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en" data-theme="dark">
-<meta http-equiv="content-type" content="text/html;charset=UTF-8" /><!-- /Added by HTTrack -->
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
 
 <head>
     <meta charset="UTF-8">
@@ -17,6 +17,7 @@
 </head>
 
 <body>
+
     <script type="text/javascript">
         toastr.options = {
             "closeButton": false,
@@ -35,6 +36,7 @@
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
         }
+
         <?php if (!empty(session()->get('success'))) { ?>
             toastr.success("<?php echo session()->get('success'); ?>");
         <?php } else if (session()->get('error')) {  ?>
@@ -45,6 +47,7 @@
             toastr.info("<?php echo session()->get('info'); ?>");
         <?php } ?>
     </script>
+
     <?php
     if (session()->get('success'))
         unset($_SESSION['success']);
@@ -65,6 +68,7 @@
             </div>
         </div>
     </div>
+
     <script src="<?= base_url("public/js/main.js") ?>"></script>
 </body>
 
