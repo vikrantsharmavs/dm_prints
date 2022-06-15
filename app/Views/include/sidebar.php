@@ -10,8 +10,10 @@
             <div class="dropdown"><a href="#" id="sidebarAvatar" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <div class="avatar-parent-child"><img alt="..." src="<?= base_url('public/')  ?>/img/people/img-profile.jpg" class="avatar avatar- rounded-circle"> <span class="avatar-child avatar-badge bg-success"></span></div>
                 </a>
-                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar"><a href="#" class="dropdown-item">Profile</a> <a href="#" class="dropdown-item">Settings</a> <a href="#" class="dropdown-item">Billing</a>
-                    <hr class="dropdown-divider"><a href="#" class="dropdown-item">Logout</a>
+                <div class="dropdown-menu dropdown-menu-end" aria-labelledby="sidebarAvatar">
+                    <a href="#" class="dropdown-item">Profile</a>
+                    <hr class="dropdown-divider">
+                    <a href="<?= site_url('logout') ?>" class="dropdown-item">Logout</a>
                 </div>
             </div>
         </div>

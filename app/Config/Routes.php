@@ -32,6 +32,9 @@ $routes->setAutoRoute(true);
 // We get a performance increase by specifying the default
 // route since we don't have to scan directories.
 $routes->match(['get', 'post'], '/', 'Login::index');
+$routes->get('logout', 'Login::logout', ['filter' => 'super_logged']);
+
+
 $routes->get('dashboard', 'Home::index', ['filter' => 'super_logged']);
 $routes->get('party', "Party::index", ['filter' => 'super_logged']);
 $routes->match(['get', 'post'], 'party-add', "Party::add", ['filter' => 'super_logged']);

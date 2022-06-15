@@ -11,6 +11,10 @@ class Login extends BaseController
     {
         $model = new CommonModel();
         $session = session();
+        $isLogin = $session->get('superAdmin');
+        if ($isLogin == true) {
+            return redirect()->to('dashboard');
+        }
         $data['title'] =  title('Login');
         if ($this->request->getMethod() == 'post') {
             $rules = $this->validate(

@@ -34,6 +34,8 @@
                         <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#"><i class="bi bi-house me-3"></i>Home </a>
                         <a class="dropdown-item" href="#"><i class="bi bi-pencil me-3"></i>Edit profile</a>
+                        <hr class="dropdown-divider">
+                        <a href="<?= site_url('logout') ?>" class="dropdown-item">Logout</a>
                     </div>
                 </div>
             </div>
