@@ -44,7 +44,6 @@ class CommonModel extends Model
         return $result;
     }
 
-
     public function MaxNumberGenerate($table, $max, $where = array())
     {
         $builder = $this->db->table($table);
