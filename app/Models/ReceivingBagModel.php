@@ -7,7 +7,6 @@ use CodeIgniter\Model;
 class ReceivingBagModel extends Model
 {
     protected $table = 'receiving';
-
     public function FetchValue(int $nb_page, $param = array())
     {
         if (isset($param) && !empty($param)) {

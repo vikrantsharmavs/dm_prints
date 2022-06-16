@@ -141,7 +141,7 @@ $searchGet = $_GET['s'] ?? '';
                                 <button type="button" class="btn btn-primary btn-sm p-1" onclick="Bag.generateDynamicInput('<?= site_url('') ?>','<?= $key['lotNumber'] ?>')" data-bs-toggle="modal" data-bs-target="#exampleModal">Add/Edit Roll</button>
                             </td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-primary btn-sm p-1" onclick="Actual.generateDynamicInput('<?= $key['lotNumber'] ?>')" data-bs-toggle="modal" data-bs-target="#ActualStock">Actual Stock</button>
+                                <button type="button" class="btn btn-primary btn-sm p-1" onclick="Actual.generateDynamicInput('<?= $key['lotNumber'] ?>',<?= number_format($totalMeter->begInch, 3)  ?>)" data-bs-toggle="modal" data-bs-target="#ActualStock">Actual Stock</button>
                             </td>
                         </tr>
                     <?php $i++;
@@ -196,20 +196,25 @@ $searchGet = $_GET['s'] ?? '';
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                <form action="<?= site_url('submitValue'); ?>" method="POST" id="formSubmit">
+                <form action="<?= site_url('receiveActualBagData'); ?>" method="POST" id="ActualFormSubmit">
                     <input type="hidden" class="form-control" id="lotNumberValueActual" name="lotNumberValueActual">
+                    <input type="hidden" class="form-control" id="totalMeterCount" name="totalMeterCount">
                     <div class="col-12 col-lg-12">
-                        <div class="col-6 mb-3">
-                            <input type='number' name='actualCreate[]' class='form-control bagInputCLass my-1' value="" min="0" placeholder="" style="border: solid 1px #7952b3;">
+                        <div class="row">
+                            <div class="col-6 mb-3">
+                                <input type='text' name='newLotNumber' class='form-control my-1' placeholder="Lot Number" style="border: solid 1px #7952b3;">
+                            </div>
+                            <div class="col-6 mb-3">
+                                <input type='number' name='actualCreate[]' class='form-control actualCreate my-1' value="" min="0" placeholder="Beg  Meter" style="border: solid 1px #7952b3;">
+                            </div>
                         </div>
-                        <div class="row" id="image_box">
-                        </div>
+                        <div class="row" id="image_box"></div>
                     </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary btn-sm" onclick="Bag.submitBeg()">Save changes</button>
+                <button type="button" class="btn btn-primary btn-sm" onclick="Actual.submitActualBeg()">Save changes</button>
             </div>
         </div>
     </div>
@@ -225,7 +230,7 @@ $searchGet = $_GET['s'] ?? '';
             let divHtml = "";
             divHtml += `<div class='col-6 mb-3' id='addRowImageEid_${RowEid}'>`;
             divHtml += `<div class='input-group' id='addRowImageEid_${RowEid}'>`;
-            divHtml += `<input type='number' name='actualCreate[]' class='form-control' value="" min="0" placeholder="" style="border: solid 1px #7952b3;">`;
+            divHtml += `<input type='number' name='actualCreate[]' class='form-control actualCreate' value="" min="0" placeholder="" style="border: solid 1px #7952b3;">`;
             divHtml += `<button class='btn btn-outline-danger btn-sm' type='button' onclick='remove_image(${RowEid})' id='button-addon2'>Remove</button>`;
             divHtml += `</div></div>`;
             $("#image_box").append(divHtml);

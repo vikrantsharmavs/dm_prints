@@ -75,6 +75,7 @@ $routes->post('sendDataReceiving', "Receiving::sendDataReceiving", ['filter' => 
 $routes->post('receiveBagData', "ReceivingBag::receiveBagData", ['filter' => 'super_logged']);
 
 
+$routes->post('receiveActualBagData', "ReceivingBag::receiveActualBagData", ['filter' => 'super_logged']);
 
 
 

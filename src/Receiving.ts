@@ -164,8 +164,8 @@ class Receiving {
     (<HTMLInputElement>document.getElementById("begNumber")).value = "";
     (<HTMLInputElement>document.getElementById("val")).value = "";
     (<HTMLInputElement>document.getElementById("id")).value = "";
-    document.getElementById("submit")?.classList.remove("d-none");
     document.getElementById("submit")?.classList.add("d-block");
+    document.getElementById("submit")?.classList.remove("d-none");
   }
 
   setLocalStorageItem(value: any) {

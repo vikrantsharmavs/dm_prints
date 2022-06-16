@@ -73,4 +73,28 @@ class ReceivingBag extends BaseController
             return redirect()->to(site_url('receiving-bag'));
         }
     }
+    public function receiveActualBagData()
+    {
+        $model = new CommonModel();
+        if ($this->request->getMethod() == 'post') {
+            $lotNumberValueActual = $this->request->getPost("lotNumberValueActual");
+            $NewLotNumberValue = $this->request->getPost("newLotNumber");
+            $actualCreate = $this->request->getPost("actualCreate");
+            if (!empty($actualCreate)) {
+                $model->deleteWhrCondition("actualstock", array("newLotNumber" =>  $NewLotNumberValue));
+                foreach ($actualCreate as $bRow) {
+                    $data['lotNumber'] = $lotNumberValueActual;
+                    $data['newLotNumber'] = $NewLotNumberValue;
+                    $data['numberMeter'] = $bRow;
+                    $data['creation_date'] = date('Y-m-d H:i:s');
+                    $model->insertValue('actualstock', $data);
+                }
+                return redirect()->to(site_url('receiving-bag'));
+            } else {
+                return redirect()->to(site_url('receiving-bag'));
+            }
+        } else {
+            return redirect()->to(site_url('receiving-bag'));
+        }
+    }
 }

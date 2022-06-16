@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2022 at 02:01 PM
+-- Generation Time: Jun 16, 2022 at 02:30 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -20,6 +20,27 @@ SET time_zone = "+00:00";
 --
 -- Database: `dmprints`
 --
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `actualstock`
+--
+
+CREATE TABLE `actualstock` (
+  `asid` int(11) NOT NULL,
+  `lotNumber` varchar(255) DEFAULT NULL,
+  `newLotNumber` varchar(50) DEFAULT NULL,
+  `numberMeter` double DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `actualstock`
+--
+
+INSERT INTO `actualstock` (`asid`, `lotNumber`, `newLotNumber`, `numberMeter`, `creation_date`) VALUES
+(1, '123', '32`232``', 159, '2022-06-16 07:26:32');
 
 -- --------------------------------------------------------
 
@@ -112,9 +133,8 @@ CREATE TABLE `receiving` (
 --
 
 INSERT INTO `receiving` (`rid`, `max_num`, `receiving_id`, `receivingDate`, `partyName`, `lotNumber`, `quality`, `color`, `weight`, `unit`, `begNumber`, `creation_date`, `updated_date`, `status`) VALUES
-(7, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '10', 'Euraopian', 'Red', '2020*2000', 'PCS', 15, '2022-06-15 05:25:30', NULL, 'Active'),
-(8, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '21', 'Euraopian', 'Red', '2020*2000', 'PCS', 11, '2022-06-15 05:25:30', NULL, 'Active'),
-(9, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '23', 'Euraopian', 'Red', '2020*2000', 'PCS', 24, '2022-06-15 05:25:30', NULL, 'Active');
+(10, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '23', 'Euraopian', 'Red', '2020*2000', 'PCS', 24, '2022-06-15 23:48:34', NULL, 'Active'),
+(12, 2, 'REC-00002', '2022-06-16', 'Vikrant Sharma', '123', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-16 00:26:59', NULL, 'Active');
 
 -- --------------------------------------------------------
 
@@ -127,6 +147,22 @@ CREATE TABLE `receivingbag` (
   `lotNumber` varchar(50) NOT NULL,
   `begInch` double NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `receivingbag`
+--
+
+INSERT INTO `receivingbag` (`rbid`, `lotNumber`, `begInch`) VALUES
+(41, '123', 12),
+(42, '123', 10),
+(43, '123', 12),
+(44, '123', 10),
+(45, '123', 10),
+(46, '123', 44),
+(47, '123', 21),
+(48, '123', 20),
+(49, '123', 10),
+(50, '123', 10);
 
 -- --------------------------------------------------------
 
@@ -196,6 +232,12 @@ INSERT INTO `weight` (`wid`, `weight_name`, `creation_date`, `updated_date`, `st
 --
 
 --
+-- Indexes for table `actualstock`
+--
+ALTER TABLE `actualstock`
+  ADD PRIMARY KEY (`asid`);
+
+--
 -- Indexes for table `color`
 --
 ALTER TABLE `color`
@@ -248,6 +290,12 @@ ALTER TABLE `weight`
 --
 
 --
+-- AUTO_INCREMENT for table `actualstock`
+--
+ALTER TABLE `actualstock`
+  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `color`
 --
 ALTER TABLE `color`
@@ -269,13 +317,13 @@ ALTER TABLE `quality`
 -- AUTO_INCREMENT for table `receiving`
 --
 ALTER TABLE `receiving`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `receivingbag`
 --
 ALTER TABLE `receivingbag`
-  MODIFY `rbid` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `rbid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `superadmin`
