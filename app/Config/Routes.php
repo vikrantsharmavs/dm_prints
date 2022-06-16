@@ -71,12 +71,12 @@ $routes->match(['get', 'post'], 'receiving-edit/(:num)', "Receiving::edit/$1", [
 
 $routes->get('receiving-bag', "ReceivingBag::index", ['filter' => 'super_logged']);
 $routes->post('submitValue', "ReceivingBag::submitValue", ['filter' => 'super_logged']);
-
-
-
-
 $routes->post('sendDataReceiving', "Receiving::sendDataReceiving", ['filter' => 'super_logged']);
 $routes->post('receiveBagData', "ReceivingBag::receiveBagData", ['filter' => 'super_logged']);
+
+
+
+
 
 /*
  * --------------------------------------------------------------------

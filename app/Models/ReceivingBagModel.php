@@ -12,7 +12,19 @@ class ReceivingBagModel extends Model
     {
         if (isset($param) && !empty($param)) {
             if ($param['search'] != '') {
-                $this->like("quality_name", trim($param['search']));
+                $this->where("lotNumber", trim($param['search']));
+            }
+            if ($param['partyName'] != '') {
+                $this->like("partyName", trim($param['partyName']));
+            }
+            if ($param['quality'] != '') {
+                $this->like("quality", trim($param['quality']));
+            }
+            if ($param['color'] != '') {
+                $this->like("color", trim($param['color']));
+            }
+            if ($param['weight'] != '') {
+                $this->like("weight", trim($param['weight']));
             }
         }
         $this->distinct();

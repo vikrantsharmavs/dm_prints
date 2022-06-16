@@ -31,3 +31,9 @@ if (!function_exists('activeTag')) {
         return $ActiveValue;
     }
 }
+if (!function_exists('numberArray')) {
+    function numberArray()
+    {
+        return array(5, 10, 25, 50, 100, 150, 200, 250, 300, 350, 400, 450, 500);
+    }
+}

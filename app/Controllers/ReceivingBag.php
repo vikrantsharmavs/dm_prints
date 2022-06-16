@@ -21,7 +21,11 @@ class ReceivingBag extends BaseController
         $param = array();
         if (isset($searchData) && isset($searchData['n'])) {
             $numRows = $searchData['n'];
-            $param['search'] = $searchData['q'];
+            $param['search'] = $searchData['s'];
+            $param['partyName'] = $searchData['p'];
+            $param['quality'] = $searchData['q'];
+            $param['color'] = $searchData['c'];
+            $param['weight'] = $searchData['w'];
         }
         $record =  $model->FetchValue($numRows, $param);
         $data = [
@@ -32,7 +36,11 @@ class ReceivingBag extends BaseController
             'model' => $CModel,
             'page' => $this->request->getGet('page') ?? '',
             'links' => $model->pager->links('default', 'bootstrap_full'),
-            'search' => $search
+            'search' => $search,
+            "quality" => $CModel->selectQuery("quality", array("status" => "Active")),
+            "color" => $CModel->selectQuery("color", array("status" => "Active")),
+            "weight" => $CModel->selectQuery("weight", array("status" => "Active")),
+            "party" => $CModel->selectQuery("party", array("status" => "Active")),
         ];
         return view('pages/receivingBag/select', $data);
     }
