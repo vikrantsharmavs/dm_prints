@@ -4,7 +4,7 @@ class ActualStock {
   ActualFormSubmit = document.querySelector("#ActualFormSubmit");
   ActualBagCreate = document.querySelectorAll(".actualCreate");
   constructor() {}
-  generateDynamicInput(latNumber: any, totalMeter: any) {
+  generateDynamicInput(latNumber: any, totalMeter: any): void {
     if (latNumber != null) {
       (<HTMLInputElement>this.lotNumberValueActual).value = latNumber;
       (<HTMLInputElement>this.totalMeterCount).value = totalMeter;
