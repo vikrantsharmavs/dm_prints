@@ -78,6 +78,8 @@ $routes->post('receiveBagData', "ReceivingBag::receiveBagData", ['filter' => 'su
 $routes->post('receiveActualBagData', "ReceivingBag::receiveActualBagData", ['filter' => 'super_logged']);
 
 
+$routes->get('check-stock', "CheckStock::index", ['filter' => 'super_logged']);
+$routes->post('submitCheck', "CheckStock::submitCheck", ['filter' => 'super_logged']);
 
 /*
  * --------------------------------------------------------------------

@@ -30,7 +30,7 @@ class ActualStock {
         total.style.borderColor = "red";
       }
     }
-    if (x == totalInput.length && Count <= totalPreviousMeter) {
+    if (x == totalInput.length && Count >= totalPreviousMeter) {
       var myForm = <HTMLFormElement>this.ActualFormSubmit;
       myForm.submit();
       console.log(x, totalInput.length);

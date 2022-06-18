@@ -66,6 +66,9 @@
                             <li class="nav-item">
                                 <a href="<?= site_url('receiving-bag'); ?>" class="<?= activeTag("receiving-bag", "receiving-bag-add"); ?>">Receiving Roll/Bag</a>
                             </li>
+                            <li class="nav-item">
+                                <a href="<?= site_url('check-stock'); ?>" class="<?= activeTag("check-stock", "check-stock"); ?>">Check Stock</a>
+                            </li>
                         </ul>
                     </div>
                 </li>
