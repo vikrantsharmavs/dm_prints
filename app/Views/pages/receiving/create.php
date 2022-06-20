@@ -103,6 +103,19 @@ $validation = \Config\Services::validation();
             </div>
             <div class="col-12 col-lg-2">
                 <div class="mb-1">
+                    <label for="width" class="form-label">width</label> <span style="font-size:12px;" id="availability"></span>
+                    <select name="width" class="form-select p-2" id="width">
+                        <option value="" selected>select width</option>
+                        <?php if (!empty($width)) {
+                            foreach ($width as $rowW) { ?>
+                                <option value="<?= $rowW->width_name ?>"><?= $rowW->width_name ?></option>
+                        <?php      }
+                        } ?>
+                    </select>
+                </div>
+            </div>
+            <div class="col-12 col-lg-2">
+                <div class="mb-1">
                     <label for="unit" class="form-label">Unit</label> <span style="font-size:12px;" id="availability"></span>
                     <select name="unit" class="form-select p-2" id="unit">
                         <option value="" selected>select unit</option>
@@ -132,6 +145,7 @@ $validation = \Config\Services::validation();
                             <th>Quality</th>
                             <th>Color</th>
                             <th>Weight</th>
+                            <th>Width</th>
                             <th>Unit</th>
                             <th>Roll/Bag</th>
                             <th>Action</th>

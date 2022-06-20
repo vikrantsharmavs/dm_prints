@@ -28,9 +28,14 @@ class CheckStockModel extends Model
             if ($param['weight'] != '') {
                 $this->like("receiving.weight", trim($param['weight']));
             }
+            if ($param['width'] != '') {
+                $this->like("receiving.width", trim($param['width']));
+            }
+        } else {
+            $this->where("actualstock.stockDone", "No");
         }
         $this->distinct();
-        $this->select('actualstock.*,receiving.quality,receiving.color,receiving.weight,receiving.unit,receiving.partyName');
+        $this->select('actualstock.*,receiving.quality,receiving.width,receiving.color,receiving.weight,receiving.unit,receiving.partyName');
         $this->join("actualstock", "actualstock.lotNumber=receiving.lotNumber");
         $this->orderBy("receiving.receiving_id", "DESC");
         $result = $this->paginate($nb_page);

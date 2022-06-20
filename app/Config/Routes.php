@@ -76,10 +76,18 @@ $routes->post('receiveBagData', "ReceivingBag::receiveBagData", ['filter' => 'su
 
 
 $routes->post('receiveActualBagData', "ReceivingBag::receiveActualBagData", ['filter' => 'super_logged']);
+$routes->post('fetchRecordActual', "CheckStock::fetchRecordActual", ['filter' => 'super_logged']);
 
 
 $routes->get('check-stock', "CheckStock::index", ['filter' => 'super_logged']);
 $routes->post('submitCheck', "CheckStock::submitCheck", ['filter' => 'super_logged']);
+
+
+$routes->get('width', "Width::index", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'width-add', "Width::add", ['filter' => 'super_logged']);
+$routes->match(['get', 'post'], 'width-edit/(:num)', "Width::add/$1", ['filter' => 'super_logged']);
+$routes->get('update-width-status/(:num)/(:any)', 'Width::update_status/$1/$2', ['filter' => 'super_logged']);
+
 
 /*
  * --------------------------------------------------------------------

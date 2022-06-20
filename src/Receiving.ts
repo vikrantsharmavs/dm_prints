@@ -5,6 +5,7 @@ class Receiving {
   quality: any = document.querySelector("#quality");
   color: any = document.querySelector("#color");
   weight: any = document.querySelector("#weight");
+  width: any = document.querySelector("#width");
   unit: any = document.querySelector("#unit");
   begNumber: any = document.querySelector("#begNumber");
   val: any = document.querySelector("#val");
@@ -26,12 +27,20 @@ class Receiving {
     let condition = true;
     let val = this.val.value;
     let id = this.id.value;
+    let width = this.width.value;
     if (weight == "") {
       condition = false;
       this.weight.classList.add("is-invalid");
     } else {
       this.weight.classList.remove("is-invalid");
     }
+    if (width == "") {
+      condition = false;
+      this.width.classList.add("is-invalid");
+    } else {
+      this.width.classList.remove("is-invalid");
+    }
+
     if (receivingDate == "") {
       condition = false;
       this.receivingDate.classList.add("is-invalid");
@@ -79,6 +88,7 @@ class Receiving {
       const formData = {
         receivingDate: receivingDate,
         partyName: partyName,
+        width: width,
         lotNumber: lotNumber,
         quality: quality,
         color: color,
@@ -94,6 +104,7 @@ class Receiving {
           arr[id].quality = quality;
           arr[id].color = color;
           arr[id].weight = weight;
+          arr[id].width = width;
           arr[id].unit = unit;
           arr[id].begNumber = begNumber;
           this.setLocalStorageItem(arr);
@@ -126,6 +137,7 @@ class Receiving {
         htmlText += "<td>" + storage[key].quality + "</td>";
         htmlText += "<td>" + storage[key].color + "</td>";
         htmlText += "<td>" + storage[key].weight + "</td>";
+        htmlText += "<td>" + storage[key].width + "</td>";
         htmlText += "<td>" + storage[key].unit + "</td>";
         htmlText += "<td>" + storage[key].begNumber + "</td>";
         htmlText += "<td>";
@@ -143,6 +155,7 @@ class Receiving {
     this.quality.value = arr[id].quality;
     this.color.value = arr[id].color;
     this.weight.value = arr[id].weight;
+    this.width.value = arr[id].width;
     this.unit.value = arr[id].unit;
     this.begNumber.value = arr[id].begNumber;
     this.val.value = "edit";
@@ -160,6 +173,7 @@ class Receiving {
     (<HTMLInputElement>document.getElementById("quality")).value = "";
     (<HTMLInputElement>document.getElementById("color")).value = "";
     (<HTMLInputElement>document.getElementById("weight")).value = "";
+    (<HTMLInputElement>document.getElementById("width")).value = "";
     (<HTMLInputElement>document.getElementById("unit")).value = "";
     (<HTMLInputElement>document.getElementById("begNumber")).value = "";
     (<HTMLInputElement>document.getElementById("val")).value = "";

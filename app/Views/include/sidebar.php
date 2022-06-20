@@ -45,6 +45,11 @@
                                 </a>
                             </li>
                             <li class="nav-item">
+                                <a class="<?= activeTag("width", "width-add")  ?>" href="<?= site_url('width') ?>">
+                                    Width
+                                </a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="<?= activeTag("weight", "weight-add")  ?>" href="<?= site_url('weight') ?>">
                                     Weight
                                 </a>

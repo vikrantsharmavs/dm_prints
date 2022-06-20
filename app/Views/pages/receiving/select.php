@@ -24,6 +24,7 @@
                     <th>Quality</th>
                     <th>Color</th>
                     <th>Weight</th>
+                    <th>Width</th>
                     <th>Unit</th>
                     <th>Action</th>
                 </tr>
@@ -38,6 +39,7 @@
                             <td class="text-heading font-semibold"><?= $key['quality'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['color'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['weight'] ?></td>
+                            <td class="text-heading font-semibold"><?= $key['width'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['unit'] ?></td>
                             <td>
                                 <a href="<?= site_url("receiving-edit/" . $key['max_num']); ?>" class="btn btn-info btn-sm p-1">Edit</a>

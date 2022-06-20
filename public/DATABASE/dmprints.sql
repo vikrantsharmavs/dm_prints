@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 16, 2022 at 02:30 PM
+-- Generation Time: Jun 20, 2022 at 02:24 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 8.0.3
 
@@ -32,6 +32,7 @@ CREATE TABLE `actualstock` (
   `lotNumber` varchar(255) DEFAULT NULL,
   `newLotNumber` varchar(50) DEFAULT NULL,
   `numberMeter` double DEFAULT NULL,
+  `stockDone` varchar(25) NOT NULL DEFAULT 'No',
   `creation_date` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -39,8 +40,11 @@ CREATE TABLE `actualstock` (
 -- Dumping data for table `actualstock`
 --
 
-INSERT INTO `actualstock` (`asid`, `lotNumber`, `newLotNumber`, `numberMeter`, `creation_date`) VALUES
-(1, '123', '32`232``', 159, '2022-06-16 07:26:32');
+INSERT INTO `actualstock` (`asid`, `lotNumber`, `newLotNumber`, `numberMeter`, `stockDone`, `creation_date`) VALUES
+(1, '101', '2222', 100, 'Yes', '2022-06-20 06:35:33'),
+(2, '101', '2222', 200, 'No', '2022-06-20 06:35:33'),
+(3, '101', '2222', 101, 'No', '2022-06-20 06:35:33'),
+(4, '101', '2222', 150, 'Yes', '2022-06-20 06:35:33');
 
 -- --------------------------------------------------------
 
@@ -121,6 +125,7 @@ CREATE TABLE `receiving` (
   `quality` varchar(255) DEFAULT NULL,
   `color` varchar(255) DEFAULT NULL,
   `weight` varchar(255) DEFAULT NULL,
+  `width` varchar(255) DEFAULT NULL,
   `unit` varchar(255) DEFAULT NULL,
   `begNumber` double DEFAULT NULL,
   `creation_date` datetime DEFAULT NULL,
@@ -132,9 +137,10 @@ CREATE TABLE `receiving` (
 -- Dumping data for table `receiving`
 --
 
-INSERT INTO `receiving` (`rid`, `max_num`, `receiving_id`, `receivingDate`, `partyName`, `lotNumber`, `quality`, `color`, `weight`, `unit`, `begNumber`, `creation_date`, `updated_date`, `status`) VALUES
-(10, 1, 'REC-00001', '2022-06-15', 'Vikrant Sharma', '23', 'Euraopian', 'Red', '2020*2000', 'PCS', 24, '2022-06-15 23:48:34', NULL, 'Active'),
-(12, 2, 'REC-00002', '2022-06-16', 'Vikrant Sharma', '123', 'Euraopian', 'Red', '2020*2000', 'PCS', 10, '2022-06-16 00:26:59', NULL, 'Active');
+INSERT INTO `receiving` (`rid`, `max_num`, `receiving_id`, `receivingDate`, `partyName`, `lotNumber`, `quality`, `color`, `weight`, `width`, `unit`, `begNumber`, `creation_date`, `updated_date`, `status`) VALUES
+(1, 1, 'REC-00001', '2022-06-20', 'Vikrant Sharma', '101', 'Euraopian', 'Red', '2020*2000', NULL, 'KG', 10, '2022-06-20 06:31:55', NULL, 'Active'),
+(2, 1, 'REC-00001', '2022-06-20', 'Vikrant Sharma', '102', 'Euraopian', 'Red', '2020*2000', NULL, 'KG', 5, '2022-06-20 06:31:55', NULL, 'Active'),
+(4, 2, 'REC-00002', '2022-06-20', 'Vikrant Sharma', '202', 'Euraopian', 'Red', '2020*2000', '25 FEET', 'PCS', 652, '2022-06-20 07:12:28', NULL, 'Active');
 
 -- --------------------------------------------------------
 
@@ -153,16 +159,16 @@ CREATE TABLE `receivingbag` (
 --
 
 INSERT INTO `receivingbag` (`rbid`, `lotNumber`, `begInch`) VALUES
-(41, '123', 12),
-(42, '123', 10),
-(43, '123', 12),
-(44, '123', 10),
-(45, '123', 10),
-(46, '123', 44),
-(47, '123', 21),
-(48, '123', 20),
-(49, '123', 10),
-(50, '123', 10);
+(1, '101', 11),
+(2, '101', 22),
+(3, '101', 33),
+(4, '101', 44),
+(5, '101', 55),
+(6, '101', 66),
+(7, '101', 77),
+(8, '101', 88),
+(9, '101', 99),
+(10, '101', 101);
 
 -- --------------------------------------------------------
 
@@ -227,6 +233,27 @@ CREATE TABLE `weight` (
 INSERT INTO `weight` (`wid`, `weight_name`, `creation_date`, `updated_date`, `status`) VALUES
 (1, '2020*2000', '2022-06-02 06:04:57', '2022-06-02 06:32:10', 'Active');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `width`
+--
+
+CREATE TABLE `width` (
+  `wid` int(11) NOT NULL,
+  `width_name` varchar(255) DEFAULT NULL,
+  `creation_date` datetime DEFAULT NULL,
+  `updated_date` datetime DEFAULT NULL,
+  `status` varchar(50) NOT NULL DEFAULT 'Active'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `width`
+--
+
+INSERT INTO `width` (`wid`, `width_name`, `creation_date`, `updated_date`, `status`) VALUES
+(1, '25 FEET', '2022-06-02 06:04:57', '2022-06-20 06:58:52', 'Active');
+
 --
 -- Indexes for dumped tables
 --
@@ -286,6 +313,12 @@ ALTER TABLE `weight`
   ADD PRIMARY KEY (`wid`);
 
 --
+-- Indexes for table `width`
+--
+ALTER TABLE `width`
+  ADD PRIMARY KEY (`wid`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -293,7 +326,7 @@ ALTER TABLE `weight`
 -- AUTO_INCREMENT for table `actualstock`
 --
 ALTER TABLE `actualstock`
-  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `asid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `color`
@@ -317,13 +350,13 @@ ALTER TABLE `quality`
 -- AUTO_INCREMENT for table `receiving`
 --
 ALTER TABLE `receiving`
-  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `rid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `receivingbag`
 --
 ALTER TABLE `receivingbag`
-  MODIFY `rbid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `rbid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `superadmin`
@@ -341,6 +374,12 @@ ALTER TABLE `unit`
 -- AUTO_INCREMENT for table `weight`
 --
 ALTER TABLE `weight`
+  MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
+-- AUTO_INCREMENT for table `width`
+--
+ALTER TABLE `width`
   MODIFY `wid` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 

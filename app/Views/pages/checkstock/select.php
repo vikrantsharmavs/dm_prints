@@ -10,6 +10,7 @@ $partyGet = $_GET['p'] ?? '';
 $qualityGet = $_GET['q'] ?? '';
 $colorGet = $_GET['c'] ?? '';
 $weightGet = $_GET['w'] ?? '';
+$widthGet = $_GET['wd'] ?? '';
 $searchGet = $_GET['s'] ?? '';
 $stockArrayGet = $_GET['st'] ?? '';
 
@@ -90,9 +91,20 @@ $stockArray = ["No", 'Yes']
                                 } ?>
                             </select>
                         </td>
-
                     </tr>
+
                     <tr>
+                        <td>
+                            <select id="" class="form-select" name="wd">
+                                <option value="" selected>select width</option>
+                                <?php if (!empty($width)) {
+                                    foreach ($width as $rowW) {
+                                        $selected = $rowW->width_name == $widthGet ? 'selected' : '' ?>
+                                        <option value="<?= $rowW->width_name ?>" <?= set_select("p", $rowW->width_name, $selected) ?>><?= $rowW->width_name ?></option>
+                                <?php      }
+                                } ?>
+                            </select>
+                        </td>
                         <td>
                             <select id="" class="form-select" name="st">
                                 <option value="" selected>check</option>
@@ -104,6 +116,7 @@ $stockArray = ["No", 'Yes']
                                 } ?>
                             </select>
                         </td>
+
                         <td>
                             <input type="text" class="form-control" placeholder="search lot number" value="<?= $searchGet ?>" name="s">
                         </td>
@@ -129,37 +142,38 @@ $stockArray = ["No", 'Yes']
                         <th>Quality</th>
                         <th>Color</th>
                         <th>Weight</th>
+                        <th>Width</th>
                         <th>Unit</th>
                         <th>Total Meter</th>
-                        <th class="text-center">Add/Edit Roll</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php if (!empty($data)) {
                         $i = $page == "" ? '1' : ($page - 1) * $pageValueNumber + 1;
                         foreach ($data as $key) {
+                            if ($key['numberMeter'] != 0) {
                     ?>
-                            <tr>
-                                <td class="text-heading font-semibold text-center">
-                                    <input type="hidden" name="EidValue[]" value="<?= $key['asid'] ?>">
-                                    <label for="flexCheckDefault">
-                                        <div class="form-check">
-                                            <input class="form-check-input p-4" name="checkBoxValue[]" type="checkbox" value="Yes" id="flexCheckDefault" <?= $key['stockDone'] == "Yes" ? "checked" : '' ?>>
-                                        </div>
-                                    </label>
-                                </td>
-                                <td class="text-heading font-semibold"><?= $key['newLotNumber'] ?></td>
-                                <td class="text-heading font-semibold"><?= $key['lotNumber'] ?></td>
-                                <td class="text-heading font-semibold"><?= $key['quality'] ?></td>
-                                <td class="text-heading font-semibold"><?= $key['color'] ?></td>
-                                <td class="text-heading font-semibold"><?= $key['weight'] ?></td>
-                                <td class="text-heading font-semibold"><?= $key['unit'] ?></td>
-                                <td class="text-heading font-semibold"><?= number_format($key['numberMeter'], 3)  ?> M</td>
-                                <td class="text-center">
-                                    <button type="button" class="btn btn-primary btn-sm p-1" onclick="Bag.generateDynamicInput('<?= site_url('') ?>','<?= $key['lotNumber'] ?>')" data-bs-toggle="modal" data-bs-target="#exampleModal">Add/Edit Roll</button>
-                                </td>
-                            </tr>
+
+                                <tr>
+                                    <td class="text-heading font-semibold text-center">
+                                        <input type="hidden" name="EidValue[]" value="<?= $key['asid'] ?>">
+                                        <label for="flexCheckDefault">
+                                            <div class="form-check">
+                                                <input class="form-check-input p-4" name="checkBoxValue[]" type="checkbox" value="Yes" id="flexCheckDefault" <?= $key['stockDone'] == "Yes" ? "checked" : '' ?>>
+                                            </div>
+                                        </label>
+                                    </td>
+                                    <td class="text-heading font-semibold"><?= $key['newLotNumber'] ?></td>
+                                    <td class="text-heading font-semibold"><?= $key['lotNumber'] ?></td>
+                                    <td class="text-heading font-semibold"><?= $key['quality'] ?></td>
+                                    <td class="text-heading font-semibold"><?= $key['color'] ?></td>
+                                    <td class="text-heading font-semibold"><?= $key['weight'] ?></td>
+                                    <td class="text-heading font-semibold"><?= $key['width'] ?></td>
+                                    <td class="text-heading font-semibold"><?= $key['unit'] ?></td>
+                                    <td class="text-heading font-semibold"><?= number_format($key['numberMeter'], 3)  ?> M</td>
+                                </tr>
                         <?php $i++;
+                            }
                         }
                     } else { ?>
                         <tr>

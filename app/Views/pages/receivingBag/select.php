@@ -11,12 +11,9 @@ $qualityGet = $_GET['q'] ?? '';
 $colorGet = $_GET['c'] ?? '';
 $weightGet = $_GET['w'] ?? '';
 $searchGet = $_GET['s'] ?? '';
+$widthGet = $_GET['wd'] ?? '';
 
 ?>
-
-
-
-
 <div class="card">
     <div class="card-header border-bottom">
         <div class="container">
@@ -77,6 +74,9 @@ $searchGet = $_GET['s'] ?? '';
                                 } ?>
                             </select>
                         </td>
+
+                    </tr>
+                    <tr>
                         <td>
                             <select id="" class="form-select" name="w">
                                 <option value="" selected>select weight</option>
@@ -89,6 +89,18 @@ $searchGet = $_GET['s'] ?? '';
                             </select>
                         </td>
                         <td>
+                            <select id="" class="form-select" name="wd">
+                                <option value="" selected>select width</option>
+                                <?php if (!empty($width)) {
+                                    foreach ($width as $rowW) {
+                                        $selected = $rowW->width_name == $widthGet ? 'selected' : '' ?>
+                                        <option value="<?= $rowW->width_name ?>" <?= set_select("p", $rowW->width_name, $selected) ?>><?= $rowW->width_name ?></option>
+                                <?php      }
+                                } ?>
+                            </select>
+                        </td>
+                        <td>
+
                             <input type="text" class="form-control" placeholder="search lot number" value="<?= $searchGet ?>" name="s">
                         </td>
                         <td>
@@ -112,10 +124,13 @@ $searchGet = $_GET['s'] ?? '';
                     <th>Quality</th>
                     <th>Color</th>
                     <th>Weight</th>
+                    <th>Width</th>
                     <th>Unit</th>
                     <th>Roll/Bag</th>
                     <th>Total Entry</th>
                     <th>Total Meter</th>
+                    <th>Total Actual Than</th>
+                    <th>Total ActualMeter </th>
                     <th class="text-center">Add/Edit Roll</th>
                     <th class="text-center">Actual Stock</th>
                 </tr>
@@ -126,6 +141,8 @@ $searchGet = $_GET['s'] ?? '';
                     foreach ($data as $key) {
                         $countTotalEntry = $model->CountRecord("receivingbag", array("lotNumber" => $key['lotNumber']));
                         $totalMeter = $model->SUMNumberGenerate("receivingbag", "begInch", array("lotNumber" => $key['lotNumber']));
+                        $totalActualMeterCount = $model->SUMNumberGenerate("actualstock", "numberMeter", array("lotNumber" => $key['lotNumber']));
+                        $totalActualTHAN = $model->CountRecord("actualstock", array("lotNumber" => $key['lotNumber'], "numberMeter!=" => 0));
                 ?>
                         <tr>
                             <td class="text-heading font-semibold text-center"><?= $i ?></td>
@@ -133,15 +150,24 @@ $searchGet = $_GET['s'] ?? '';
                             <td class="text-heading font-semibold"><?= $key['quality'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['color'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['weight'] ?></td>
+                            <td class="text-heading font-semibold"><?= $key['width'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['unit'] ?></td>
                             <td class="text-heading font-semibold"><?= $key['BEG'] ?></td>
                             <td class="text-heading font-semibold"><?= $countTotalEntry  ?></td>
                             <td class="text-heading font-semibold"><?= number_format($totalMeter->begInch, 3)  ?> M</td>
+                            <td class="text-heading font-semibold"><?= $totalActualTHAN ?> </td>
+                            <td class="text-heading font-semibold"><?= number_format($totalActualMeterCount->numberMeter, 3)  ?> M</td>
                             <td class="text-center">
                                 <button type="button" class="btn btn-primary btn-sm p-1" onclick="Bag.generateDynamicInput('<?= site_url('') ?>','<?= $key['lotNumber'] ?>')" data-bs-toggle="modal" data-bs-target="#exampleModal">Add/Edit Roll</button>
                             </td>
                             <td class="text-center">
-                                <button type="button" class="btn btn-primary btn-sm p-1" onclick="Actual.generateDynamicInput('<?= $key['lotNumber'] ?>',<?= number_format($totalMeter->begInch, 3)  ?>)" data-bs-toggle="modal" data-bs-target="#ActualStock">Actual Stock</button>
+                                <?php
+                                if ($totalMeter->begInch != '') { ?>
+                                    <button type="button" class="btn btn-primary btn-sm p-1" onclick="Actual.generateDynamicInput('<?= site_url('') ?>','<?= $key['lotNumber'] ?>',<?= number_format($totalMeter->begInch, 3)  ?>)" data-bs-toggle="modal" data-bs-target="#ActualStock">Actual Stock</button>
+                                <?php } else { ?>
+                                    <button type="button" class="btn btn-secondary btn-sm p-1">Actual Stock</button>
+
+                                <?php } ?>
                             </td>
                         </tr>
                     <?php $i++;
@@ -165,7 +191,7 @@ $searchGet = $_GET['s'] ?? '';
 <!-- Modal -->
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-scrollable">
-        <div class="modal-content">
+        <div class="modal-content ">
             <div class="modal-header">
                 <h5 class="modal-title" id="exampleModalLabel">Roll/Bag</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
@@ -188,11 +214,17 @@ $searchGet = $_GET['s'] ?? '';
     <div class="modal-dialog modal-dialog-scrollable">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="ActualStockLabel">Actual Stock</h5>
-                <div class="m-3">
-                    <button onclick="addRow()" type="button" class="btn btn-sm btn-primary">Add More Images</button>
-                </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col">
+                            <h5 class="modal-title" id="ActualStockLabel">Actual Stock</h5>
+                        </div>
+                        <div class="col">
+                            <button onclick="addRow()" type="button" class="btn btn-sm btn-primary">Add More Stock</button>
 
+                        </div>
+                    </div>
+                </div>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
@@ -200,13 +232,11 @@ $searchGet = $_GET['s'] ?? '';
                     <input type="hidden" class="form-control" id="lotNumberValueActual" name="lotNumberValueActual">
                     <input type="hidden" class="form-control" id="totalMeterCount" name="totalMeterCount">
                     <div class="col-12 col-lg-12">
-                        <div class="row">
-                            <div class="col-6 mb-3">
-                                <input type='text' name='newLotNumber' class='form-control my-1' placeholder="Lot Number" style="border: solid 1px #7952b3;">
-                            </div>
-                            <div class="col-6 mb-3">
-                                <input type='number' name='actualCreate[]' class='form-control actualCreate my-1' value="" min="0" placeholder="Beg  Meter" style="border: solid 1px #7952b3;">
-                            </div>
+                        Total Meter <span id="TotalMeter"></span>
+                        <div class="col-12 mb-3">
+                            <input type='text' name='newLotNumber' id="NewLotNumberValueArea" class='form-control my-1' placeholder="Lot Number" style="border: solid 1px #7952b3;">
+                        </div>
+                        <div class="row" id="forEdit">
                         </div>
                         <div class="row" id="image_box"></div>
                     </div>
@@ -228,10 +258,10 @@ $searchGet = $_GET['s'] ?? '';
         if (RowEid < max_fields) {
             RowEid++;
             let divHtml = "";
-            divHtml += `<div class='col-6 mb-3' id='addRowImageEid_${RowEid}'>`;
+            divHtml += `<div class='col-4 mb-3' id='addRowImageEid_${RowEid}'>`;
             divHtml += `<div class='input-group' id='addRowImageEid_${RowEid}'>`;
             divHtml += `<input type='number' name='actualCreate[]' class='form-control actualCreate' value="" min="0" placeholder="" style="border: solid 1px #7952b3;">`;
-            divHtml += `<button class='btn btn-outline-danger btn-sm' type='button' onclick='remove_image(${RowEid})' id='button-addon2'>Remove</button>`;
+            divHtml += `<button class='btn btn-outline-danger btn-sm' type='button' onclick='remove_image(${RowEid})' id='button-addon2'>X</button>`;
             divHtml += `</div></div>`;
             $("#image_box").append(divHtml);
         } else {

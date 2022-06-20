@@ -22,12 +22,15 @@ class ReceivingBagModel extends Model
             if ($param['color'] != '') {
                 $this->like("color", trim($param['color']));
             }
+            if ($param['width'] != '') {
+                $this->like("width", trim($param['width']));
+            }
             if ($param['weight'] != '') {
                 $this->like("weight", trim($param['weight']));
             }
         }
         $this->distinct();
-        $this->select('quality,color,weight,unit,partyName,lotNumber,SUM(begNumber) AS BEG');
+        $this->select('quality,color,weight,width,unit,partyName,lotNumber,SUM(begNumber) AS BEG');
         $this->orderBy("receiving_id", "DESC");
         $this->groupBy("lotNumber");
         $result = $this->paginate($nb_page);

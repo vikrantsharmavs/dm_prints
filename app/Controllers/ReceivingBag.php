@@ -26,6 +26,7 @@ class ReceivingBag extends BaseController
             $param['quality'] = $searchData['q'];
             $param['color'] = $searchData['c'];
             $param['weight'] = $searchData['w'];
+            $param['width'] = $searchData['wd'];
         }
         $record =  $model->FetchValue($numRows, $param);
         $data = [
@@ -41,6 +42,7 @@ class ReceivingBag extends BaseController
             "color" => $CModel->selectQuery("color", array("status" => "Active")),
             "weight" => $CModel->selectQuery("weight", array("status" => "Active")),
             "party" => $CModel->selectQuery("party", array("status" => "Active")),
+            "width" => $CModel->selectQuery("width", array("status" => "Active")),
         ];
         return view('pages/receivingBag/select', $data);
     }

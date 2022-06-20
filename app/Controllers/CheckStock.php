@@ -27,6 +27,7 @@ class CheckStock extends BaseController
             $param['color'] = $searchData['c'];
             $param['weight'] = $searchData['w'];
             $param['stock'] = $searchData['st'];
+            $param['width'] = $searchData['wd'];
         }
         $record =  $model->FetchValue($numRows, $param);
         $data = [
@@ -42,6 +43,7 @@ class CheckStock extends BaseController
             "color" => $CModel->selectQuery("color", array("status" => "Active")),
             "weight" => $CModel->selectQuery("weight", array("status" => "Active")),
             "party" => $CModel->selectQuery("party", array("status" => "Active")),
+            "width" => $CModel->selectQuery("width", array("status" => "Active")),
         ];
         return view('pages/checkstock/select', $data);
     }
@@ -77,11 +79,13 @@ class CheckStock extends BaseController
             if (!empty($actualCreate)) {
                 $model->deleteWhrCondition("actualstock", array("newLotNumber" =>  $NewLotNumberValue));
                 foreach ($actualCreate as $bRow) {
-                    $data['lotNumber'] = $lotNumberValueActual;
-                    $data['newLotNumber'] = $NewLotNumberValue;
-                    $data['numberMeter'] = $bRow;
-                    $data['creation_date'] = date('Y-m-d H:i:s');
-                    $model->insertValue('actualstock', $data);
+                    if ($bRow != '' || $bRow != 0) {
+                        $data['lotNumber'] = $lotNumberValueActual;
+                        $data['newLotNumber'] = $NewLotNumberValue;
+                        $data['numberMeter'] = $bRow;
+                        $data['creation_date'] = date('Y-m-d H:i:s');
+                        $model->insertValue('actualstock', $data);
+                    }
                 }
                 return redirect()->to(site_url('receiving-bag'));
             } else {
@@ -89,6 +93,20 @@ class CheckStock extends BaseController
             }
         } else {
             return redirect()->to(site_url('receiving-bag'));
+        }
+    }
+
+    public function fetchRecordActual()
+    {
+        $model = new CommonModel();
+        $latNumber = $this->request->getPost("lotNumber");
+        $fetchRowActual = $model->fetchRow("actualstock", array("lotNumber" => $latNumber));
+        $actualstockData = $model->selectQuery("actualstock", array("lotNumber" => $latNumber));
+        if (!empty($fetchRowActual)) {
+
+            return json_encode(["status" => "Success", 'NewLotNumber' => $fetchRowActual->newLotNumber, "actualstockData" => $actualstockData]);
+        } else {
+            return json_encode(["status" => "Error", 'NewLotNumber' => "", "actualstockData" => ""]);
         }
     }
 }

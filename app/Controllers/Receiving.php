@@ -56,6 +56,7 @@ class Receiving extends BaseController
             "quality" => $model->selectQuery("quality", array("status" => "Active")),
             "color" => $model->selectQuery("color", array("status" => "Active")),
             "weight" => $model->selectQuery("weight", array("status" => "Active")),
+            "width" => $model->selectQuery("width", array("status" => "Active")),
             "party" => $model->selectQuery("party", array("status" => "Active")),
             "unit" => $model->selectQuery("unit", array("status" => "Active")),
         ];
@@ -93,8 +94,6 @@ class Receiving extends BaseController
 
             $storage = $this->request->getPost("storage");
             $BillNumber = $this->request->getPost("BillNumber");
-
-
             if ($BillNumber != '') {
                 $add = $BillNumber;
                 $receivingId = "REC-" . STR_PAD((string)$add, 5, "0", STR_PAD_LEFT);
@@ -113,6 +112,7 @@ class Receiving extends BaseController
                 $insert['quality'] = $value['quality'];
                 $insert['color'] = $value['color'];
                 $insert['weight'] = $value['weight'];
+                $insert['width'] = $value['width'];
                 $insert['unit'] = $value['unit'];
                 $insert['begNumber'] = $value['begNumber'];
                 $insert['creation_date'] = date('Y-m-d H:i:s');
@@ -138,6 +138,7 @@ class Receiving extends BaseController
                     $resultArray['quality'] = $row->quality;
                     $resultArray['color'] = $row->color;
                     $resultArray['weight'] = $row->weight;
+                    $resultArray['width'] = $row->width;
                     $resultArray['unit'] = $row->unit;
                     $resultArray['begNumber'] = $row->begNumber;
                     $RecordArray[] = array_push($RecordArray, $resultArray);
@@ -157,6 +158,7 @@ class Receiving extends BaseController
                 "weight" => $model->selectQuery("weight", array("status" => "Active")),
                 "party" => $model->selectQuery("party", array("status" => "Active")),
                 "unit" => $model->selectQuery("unit", array("status" => "Active")),
+                "width" => $model->selectQuery("width", array("status" => "Active")),
             ];
             return view('pages/receiving/create', $data);
         }
